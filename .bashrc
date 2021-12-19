@@ -31,7 +31,8 @@ test -z "$PROFILEREAD" && test -z "$PROFILEONCE" &&
 # Source helpers
 test -e ~/.alias_all && . ~/.alias_all
 test -e ~/.alias && . ~/.alias
-test -e ~/.git-completion.bash && . ~/.git-completion.bash
+test -e ~/.alias_shu && . ~/.alias_shu
+#test -e ~/.git-completion.bash && . ~/.git-completion.bash
 test -e ~/.ct-completion.bash && . ~/.ct-completion.bash
 test -e ~/.vboxmanage-completion.bash && . ~/.vboxmanage-completion.bash
 
@@ -98,10 +99,15 @@ PS1=$PS1_mono
 # color version. On older bash versions (3.x?) this fails with multi-line
 # editing, so either should have \n after last escape sequence or simply
 # don't use it. bash-4.1.5(1) works (bash-3.2.33(1) doesn't).
-PS1_color='\[\e]0;\w\a\]\[\e[32m\]\u@\h:\[\e[33m\]\w\[\e[32m\]$(__git_ps1 " (%s)")\[\e[0m\] $ '
-PS1_color_n='\[\e]0;\w\a\]\[\e[32m\]\u@\h:\[\e[33m\]\w\[\e[32m\]$(__git_ps1 " (%s)")\[\e[0m\]\n$ '
+if [ "$(id -u)" != "0" ]; then
+  PS1_color='\[\e]0;\w\a\]\[\e[32m\]\u@\h:\[\e[33m\]\w\[\e[32m\]$(__git_ps1 " (%s)")\[\e[0m\] $ '
+  PS1_color_n='\[\e]0;\w\a\]\[\e[32m\]\u@\h:\[\e[33m\]\w\[\e[32m\]$(__git_ps1 " (%s)")\[\e[0m\]\n$ '
+else
+  PS1_color='\[\e]0;\w\a\]\[\e[31m\]\u@\h:\[\e[33m\]\w\[\e[32m\]$(__git_ps1 " (%s)")\[\e[0m\] $ '
+  PS1_color_n='\[\e]0;\w\a\]\[\e[31m\]\u@\h:\[\e[33m\]\w\[\e[32m\]$(__git_ps1 " (%s)")\[\e[0m\]\n$ '
+fi
 # =~ is regex and excepts xterm-256color etc.
-if [[ "$TERM" =~ "xterm" || "$TERM" = "rxvt-cygwin-native" ]] ; then
+if [[ "$TERM" =~ "xterm" || "$TERM" =~ color || "$TERM" = "rxvt-cygwin-native" ]] ; then
     [ "${BASH_VERSINFO[0]}" -ge "4" ] && PS1=$PS1_color
     # comment out next line to get monochrome propmt on bash-3.
     [ "${BASH_VERSINFO[0]}" -le "3" ] && PS1=$PS1_color_n
@@ -200,3 +206,10 @@ PERL5LIB="/home/sdettmer/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5
 PERL_LOCAL_LIB_ROOT="/home/sdettmer/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/sdettmer/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/sdettmer/perl5"; export PERL_MM_OPT;
+
+# bash uses vi commands
+set -o vi
+
+# fix $VIEW<tab> switches to \$VIEW instead of /home/...
+shopt -s direxpand
+shopt -s cdable_vars
