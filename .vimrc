@@ -2012,3 +2012,135 @@ endfunction
 " http://vim.wikia.com/wiki/Forcing_UTF-8_Vim_to_read_Latin1_as_Latin1
 "   Currency sign: "¤"
 " vim: et sw=2 ts=2 tw=2 tw=75 :
+
+
+" *********************************************
+" *********************************************
+" mein Zeuch, wohin damit?
+" *********************************************
+" *********************************************
+set expandtab
+set ic               "uncasesenitive
+set smartcase        "if in searchstring is an uppers case, switch to case senitive serach
+set hlsearch         "highlight search results
+set incsearch        "match the search string while typing
+set nowrap
+
+" *****************************************************************************
+" Spell
+" *****************************************************************************
+"set spell spelllang=de,en  " do this with mapping
+set spellfile=~/.vim/spell.add
+" only show top 10 spell matches
+set sps=best,10
+
+" ********************************************
+" keyboard mappings
+" ********************************************
+" map ctag bindings to use no altgr
+"nnoremap ä <C-]>
+"nnoremap Ä <C-O>
+map <F1> <C-]>
+map <F2> <C-O>
+
+map <F3> :set diffopt+=iwhite<cr>
+map <F4> :set diffopt-=iwhite<cr>
+
+" comment/uncomment
+map <F5> :norm i//<cr>
+map <F6> :norm xx<cr>
+
+" switch bettween openfiles
+map <F7>    :bn<CR>
+map <F8>    :bp<CR>
+
+map <F9>     :TlistToggle<cr>
+"enable/disable spellchecking
+map <F10> :set spell!<CR><Bar>:echo 'Spell check: ' . strpart('OffOn', 3 * &spell, 3)<CR>
+
+" next/previous diff
+map <F11> ]c
+map <F12> [c
+
+
+" map %:h<tab> to %%
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" ********************************************
+" macros
+" ********************************************
+:let @t='0$F 100i d120|j'
+:let @f='V%zf'
+" To entern an ESC press Ctrl+V ESC
+
+:let @p='04li4li8li 3li 3li 3li 3li 9li 9li8li 3li 3li 3li 3li 9li 9li8li 3li 3li 3li 3li 9li 9li8li 3li 3li 3li 3li 9li 9li8li 3li 3li 3li 3li 9li 9li8li 3li 3li 3li 3li 9li 9li8li 3li 3li 3li 3li 9li 9li8li 3li 3li 3li 3li 9li 9li8li8li8li8li8li8li8li8li8li8li2li2li2li'
+"PCSStatus - 2565001
+:let @i='04li	FSystemLifeSign2li		FSystGenStat2li		Reserved4li	INrCouSent2li		Reserved2li		Reserved2li			DoInstNr2li			ConStat2li			Reserved2li			Reserved8li	In8li	Out8li	Uncertain2li			ErrCode2li			ErrStat2li			Reserved2li			Reserved'
+"CCUO_CCUC - 2053001
+:let @o='8li	ILifeSignTCMS4li		IProjectID2li			IProjectVariant2li			Reserved8li	IKmCnt4li		IMCnt4li		Reserved24li	GPSData4li		ITrainSpeed2li			IDriveDir2li			IDriveDirSwitch32li	IDoorstatus2li		IDoorsReleasedL2li		DoorsReleasedR2li		ITimeZone2li		IDaylightTime4li		ITempOutside4li		ITempInside2li		ITrainMode2li		IOperationMode'
+
+" ********************************************
+" Abbreviations - General Editing - Inserting Dates and Times
+" ********************************************
+" First, some command to add date stamps (with and without time).
+" I use these manually after a substantial change to a webpage.
+" [These abbreviations are used with the mapping for ",L".]
+"
+  iab Ydate <C-R>=strftime("%y%m%d")<CR>
+" Example: 971027
+"
+  iab Ytime <C-R>=strftime("%H:%M")<CR>
+" Example: 14:28
+"
+  iab YDT   <C-R>=strftime("%y%m%d %T")<CR>
+" Example: 971027 12:00:00
+"
+  iab YDATE <C-R>=strftime("%a %b %d %T %Z %Y")<CR>
+" Example: Tue Dec 16 12:07:00 CET 1997
+"
+" On Windows the functions "strftime" seems to have a different
+" format.  Therefore the following may be necessary:  [980730]
+" if !has("unix")
+" iab YDATE <C-R>=strftime("%c %a")<CR>
+" else
+" iab YDATE <C-R>=strftime("%D %T %a")<CR>
+" endif
+
+" abbreviation comment head
+ab abhead   /**
+            \<CR>Declaration of class adapter::code::CodingStyleExample.
+            \<CR>
+            \<CR>@copyright Copyright (C) 2020 Bombardier Transportation.
+            \<CR>This software is supplied under the terms of a license agreement or
+            \<CR>nondisclosure agreement with Bombardier Transport, and may not be copied or
+            \<CR>disclosed except in accordance with the terms of that agreement.
+            \<CR>/
+
+" abbreviation comment a function
+ab abcf     /**
+            \<CR>Short desciption.
+            \<CR>
+            \<CR>Detailed description.
+            \<CR>
+            \<CR>\param[in]
+            \<CR>\param[out]
+            \<CR>\return
+            \<CR>/
+
+ab abtodo //TODO SHU - RTC-...
+ab ablog  //TODO SHU remove this log statement - should never be commited
+
+" ****************************************************
+" change color of status line based on mode
+" ****************************************************
+" first, enable status line always
+set laststatus=2
+"
+" now set it up to change the status line based on mode
+if version >= 700
+    au InsertEnter * hi StatusLine term=reverse ctermfg=0 ctermbg=11 gui=undercurl guisp=Red
+    au InsertLeave * hi StatusLine term=reverse ctermfg=15 ctermbg=8 gui=bold,reverse
+endif
+
+" set tags db
+set tags=$VIEW/tags
