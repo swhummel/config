@@ -219,7 +219,7 @@ set listchars=trail:·,tab:»·
   set   modelines=10
 "
 "       number:      ...
-  set nonumber
+  set number
 "
 "       path:   The list of directories to search when you specify
 "               a file with an edit command.
@@ -746,7 +746,8 @@ nmap ,F :call FollowMode()<CR>
 "   by file mode line. So file defaults first:
 au BufNewFile,BufRead *           call BufferDefaults()
 fun! BufferDefaults()
-  setl tw=65 noet ts=8 sts=0
+  " SHU setl tw=65 noet ts=8 sts=0
+  setl tw=78 noet ts=8 sts=0
   call Enable_overlen_hi()
 endfun
 " Let Vim identify itself when editing emails with Mutt:
@@ -2110,7 +2111,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 ab abhead   /**
             \<CR>Declaration of class adapter::code::CodingStyleExample.
             \<CR>
-            \<CR>@copyright Copyright (C) 2020 Bombardier Transportation.
+            \<CR>@copyright Copyright (C) 2022 Bombardier Transportation.
             \<CR>This software is supplied under the terms of a license agreement or
             \<CR>nondisclosure agreement with Bombardier Transport, and may not be copied or
             \<CR>disclosed except in accordance with the terms of that agreement.
@@ -2144,3 +2145,9 @@ endif
 
 " set tags db
 set tags=$VIEW/tags
+
+" use in diff mode another colorscheme
+if &diff
+    colorscheme blue
+endif
+
