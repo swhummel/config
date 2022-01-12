@@ -1,0 +1,10 @@
+#! /bin/bash
+if [ -z "$VIEW" ]; then
+    echo "Error: VIEW not set"
+    exit 1
+fi
+
+cd $VIEW
+FINDINGS_FILE_NAME='swp_findings.txt'
+find . -name '.*.swp' > $FINDINGS_FILE_NAME
+cat $FINDINGS_FILE_NAME

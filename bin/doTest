@@ -1,0 +1,34 @@
+#! /bin/bash
+if [ $# -ne 2 ]; then
+    echo "usage: $0 PROJECT test_applist_file"
+    exit 1
+fi
+
+export NTP_SERVER_IP=pool.ntp.org
+
+isViewSet.sh
+if [ $? -ne 0 ]; then
+    exit 2
+fi
+
+TESTDIR=/usr/local/bt/Moduletests
+cd $TESTDIR
+
+# enable faketime
+#ls "`pwd`/FAKETIME_TIMESTAMP_FILE" || echo "Warning: faketime is disabled"
+#export FAKETIME_TIMESTAMP_FILE="`pwd`/FAKETIME_TIMESTAMP_FILE"
+
+#./cpuinfo.sh &
+
+export TZ=UTC
+taskset --cpu-list 0 $VIEW/PIS/test/tools/scripts/night_test.sh -a -p $TESTDIR/overwrite_cfg -b $VIEW/../build/pismdt$1/ $2
+
+# with -g to create SMTS and SMTR
+#time $VIEW/PIS/test/tools/scripts/night_test.sh -g -a 0.de.pool.ntp.org -p $TESTDIR/overwrite_cfg -b $VIEW/../build/pismdt$1/ $2
+
+#mv /usr/local/bt/Modultest/cpuinfo.log HePisTestApplDir/log/
+
+echo "********************************************************"
+echo "***                   S U M M A R Y                  ***"
+echo "********************************************************"
+egrep 'app.*Totals' HePisTestApplDir/log/mod*

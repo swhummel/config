@@ -1,0 +1,105 @@
+#! /bin/bash
+
+function compilePIS()
+{
+    FILE_STDOUT_PIS="pis_result.out"
+    FILE_STDERR_PIS="pis_err.out"
+    CMDMK="nice -19 clearmake -J 8 debug"
+    cd $VIEW/PIS/test/integration/hepistestappl/
+    if [ "$1" == "full" ]; then
+        echo " *** PIS with QMAKE ***"
+        qmake4-colinux "DEFINES+=HE_PIS_TEST_WO_DVS"
+    else
+        echo " *** PIS without QMAKE ***"
+    fi
+    $CMDMK 1>$FILE_STDOUT_PIS 2>$FILE_STDERR_PIS
+    if [ $? -ne 0 ] ; then
+        echo "...failed."
+        echo "============================================================="
+        cat pis_err.out | grep -v "Project MESSAGE"
+        return
+    else
+        echo "...success"
+        return
+    fi
+}
+
+function compileAPP()
+{
+    FILE_STDOUT_APP="app_result.out"
+    FILE_STDERR_APP="app_err.out"
+    CMDMK="nice -19 clearmake -J 8 debug"
+    cd $VIEW/PIS/test/apps/bld/
+    if [ "$1" == "full" ]; then
+        echo " *** APP with QMAKE ***"
+        qmake4-colinux apps_all.pro
+    else
+        echo " *** APP without QMAKE ***"
+    fi
+    $CMDMK 1>$FILE_STDOUT_APP 2>$FILE_STDERR_APP
+    if [ $? -ne 0 ] ; then
+        echo "...failed."
+        echo "============================================================="
+        cat app_err.out | grep -v "Project MESSAGE"
+        return
+    else
+        echo "...success"
+        return
+    fi
+}
+
+clear;
+isViewSet.sh
+if [ $? -ne 0 ]; then
+   exit 1
+fi
+
+if [ $# -eq 0 ]; then
+    time compilePIS
+    time compileAPP
+else
+    if [ $# -eq 1 ]; then
+        case "$1" in
+            'pis')
+                time compilePIS
+                ;;
+            'app')
+                time compileAPP
+                ;;
+            'full')
+                time compilePIS full
+                time compileAPP full
+                ;;
+             *)
+                echo "unkown parameter: $1"
+                exit 1
+                ;;
+         esac
+     else
+         if [ $# -eq 2 ]; then
+             case "$2" in
+                 'full')
+                    case "$1" in
+                       'pis')
+                            time compilePIS full
+                            ;;
+                       'app')
+                            time compileAPP full
+                            ;;
+                       *)
+                            echo "unkown parameter: $1"
+                            exit 1
+                            ;;
+                    esac
+                    ;;
+                 *)
+                    echo "unknown second parameter: $2"
+                    ;;
+             esac   
+         else
+            echo "to much parameters"
+         fi #   $# != 2
+     fi #   $# != 1
+fi #   $# != 0
+
+exit 0

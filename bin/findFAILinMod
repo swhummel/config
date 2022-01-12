@@ -1,0 +1,36 @@
+#! /bin/bash
+clear;
+
+FILENUMBER=0
+
+if [ $# -gt 1 ]; then
+    echo "ERROR: to much parameters"
+    exit 1
+fi
+
+for i in $(find . -name '*modTest*' | sort); do
+
+    if [[ $i != *summary* ]]; then
+
+        FAIL_NUMBER=$(egrep -c 'FAIL!' $i)
+
+        if [[ $? == 0 ]]; then
+
+            if [ $# -eq 0 ]; then
+                # with error count
+                echo "$FAIL_NUMBER FAIL! found in $i"
+            elif [ $1='-l' ]; then
+                # only file name
+                echo "$i"
+            else
+                echo "wrong parameter"
+                exit 2
+            fi
+
+        fi
+
+#        echo "$FILENUMBER: found <<`egrep -c 'FAIL!' $i`>> FAIL's in: $i" | grep -v summary;
+        let FILENUMBER=$FILENUMBER+1
+    fi
+
+done

@@ -1,0 +1,17 @@
+#! /bin/bash
+if [ $# -ne 1 ]; then
+    echo "only one parameter excpected - the string for grep"
+    exit -1
+fi
+
+clear;
+fileNumber=0
+for i in `find . -name *modTest*`; do 
+	if [[ $i != *summary* ]]; then
+		#echo "$fileNumber: found <<`egrep "$1" $i` \n>> in: $i" | grep -v summary; 
+        egrep "$1" $i | egrep -v summary;
+        echo "in ---                $i"
+		let fileNumber=$fileNumber+1
+	fi
+done
+echo "$fileNumber files compared"

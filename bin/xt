@@ -1,0 +1,72 @@
+#! /bin/bash
+#WORKDIR=""
+WORKDIR="/vobs/"
+
+#example: xterm -lc -bg black -fg white -geometry 280x60
+#xterm -lc -bg rgb:55/55/aa &
+
+if [ $# -eq 0 ]; then
+    cd /home/swhummel/
+    #xterm -lc -geometry 260x95 -e 'tmux' &
+    #xterm -lc -geometry 150x60 -e 'tmux' &
+    xterm -lc -geometry 150x60 &
+fi
+
+if [ $# -eq 1 ]; then
+    case $1 in
+#        dyn)
+#            WORKDIR="/vobs/"
+#            PROJ="dyn"
+##            cd $WORKDIR
+#            xterm -lc -title dynamic -geometry 200x50 -bg rgb:33/33/33 &
+#            #xterm -lc -title dynamic -geometry 200x50 -bg rgb:33/33/33 -e 'test.sh' &
+#            ;;
+#        dt5)
+#            WORKDIR="/home/swhummel/ccviews/main_dt5/vobs/"
+#            PROJ="dt5"
+##            cd $WORKDIR
+#            xterm -lc -title dt5 -geometry 200x50 -bg rgb:22/22/00 &
+#            ;;
+#        etp)
+#            WORKDIR="/home/swhummel/ccviews/main_etp/vobs/"
+#            PROJ="etp"
+##            cd $WORKDIR
+#            xterm -lc -title etp -geometry 200x50 -bg rgb:22/00/11 &
+#            ;;
+#        br430)
+#            WORKDIR="/home/swhummel/ccviews/main_br430/vobs/"
+#            PROJ="br430"
+##            cd $WORKDIR
+#            xterm -lc -title br430 -geometry 200x50 -bg rgb:22/11/00 &
+#            ;;
+#        sdtl)
+#            WORKDIR="/home/swhummel/ccviews/main2_sdtl/vobs/"
+##            cd $WORKDIR
+#            xterm -lc -title sdtl -geometry 200x50 -bg rgb:00/22/00 &
+#            ;;
+#        dosto)
+#            WORKDIR="/home/swhummel/ccviews/main_dosto/vobs/"
+##            cd $WORKDIR
+#            xterm -lc -title dosto -geometry 200x50 -bg rgb:00/00/22 &
+#            ;;
+        test)
+            WORKDIR="/usr/local/bt/Modultest/"
+            cd $WORKDIR
+            #xterm -lc -title coLinux -geometry 290x60 -bg black -fg white &
+            xterm -lc -title test -geometry 320x60+1+1 -e tmux &
+            #xterm -lc -title test -geometry 320x60+1+1 &
+            ;;
+        *)
+#            WORKDIR="/home/swhummel/ccviews/$1/"
+#            cd $WORKDIR
+            xterm -lc -geometry 250x80+400+10 &
+            ;;
+    esac
+fi
+
+if [ $# -gt 1 ]; then
+    echo "to many parameters"
+    exit 1
+fi
+
+exit 0

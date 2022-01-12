@@ -1,0 +1,22 @@
+# Hier die Startkonfiguration definieren (dbg oder rls)
+export START_VARIANT=dbg
+# Der LD_LIBRARY_PATH wird gesetzt:
+export LD_LIBRARY_PATH=/opt/local/cross/Qt-4.6.0/x86/shared/rls/lib\
+:$VIEW/TcmsGenSw/Mitrac/dvs/out/linux-g++/dvsifcsh/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/Mitrac/cm/out/linux-g++/cmsh/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/Mitrac/tdc/out/linux-g++/tdcipcsh/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/Mitrac/iptcom/out/linux-g++/iptcomsh/multiproc/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/Mitrac/iptcom/out/linux-g++/iptcomsh/multiproc/shared/dbg\
+:$VIEW/TcmsGenSw/3p/fastcgi/out/linux-g++/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/lib/fcgiserv/out/linux-g++/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/lib/helog/out/linux-g++/helogbasesh/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/lib/hewdg/out/linux-g++/hewdgobssh/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/lib/hewdg/out/linux-g++/hewdgsh/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/3p/xbinder/linux-x86-g++/lib\
+:$VIEW/TcmsGenSw/lib/hewdg/out/linux-g++/hewdgRefObssh/shared/$START_VARIANT\
+:$VIEW/PIS/source/adapter/wdglib/out/linux-g++/ccucOnboardAdaptersh/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/lib/iptTL/out/linux-g++/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/lib/vcuhwif/out/linux-g++/vcuhwifsh/shared/$START_VARIANT\
+:$VIEW/TcmsGenSw/lib/osif/out/linux-g++/osifsh/shared/$START_VARIANT
+
+echo LD_LIBRARY_PATH: $LD_LIBRARY_PATH

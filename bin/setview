@@ -1,0 +1,3 @@
+#! /bin/bash
+export VIEW=$(pwd)
+echo VIEW set to $VIEW

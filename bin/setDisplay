@@ -1,0 +1,11 @@
+#! /bin/bash
+CURR_DISPL_FILE=$HOME/.currentDisplay.txt
+
+: ${CURR_DISPL_FILE:?} # checks that var is set
+
+cat $HOME/.currentDisplay.txt || {
+    echo "ERROR: $CURR_DISPL_FILE does not exist";
+    return 1;
+}
+
+export DISPLAY=$(cat $HOME/.currentDisplay.txt)

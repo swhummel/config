@@ -1,0 +1,3 @@
+
+ct find . -version "{brtype(dev_pis_mula_span) &&created_since(02-Nov)}" -print
+

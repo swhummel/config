@@ -1,0 +1,19 @@
+#! /bin/bash
+
+isViewSet.sh
+#  clean frame
+echo " cleanup frame dir"
+for a in `find $VIEW/PIS/test/frame/ -name *.o`; do
+   echo "    $a" 
+   rm "$a"
+done
+
+if [$# -ne 1]; then
+    echo "cleaning no test"
+else
+    echo " cleanup $1" 
+    for b in `find $1 -name *.o`; do
+        echo "    $b" 
+        rm "$b"
+    done
+fi

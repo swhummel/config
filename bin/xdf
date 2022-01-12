@@ -1,0 +1,8 @@
+#! /bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 filename"
+else
+   #LC_ALL=POSIX cleartool diff -pre -g $1
+   LC_ALL=en_US.UTF-8 cleartool diff -pre -g $1
+fi

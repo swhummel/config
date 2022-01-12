@@ -1,0 +1,43 @@
+#! /bin/bash
+clear;
+if [ -z "$VIEW" ]; then
+    echo "Error: VIEW not set"
+    exit 1
+fi
+#isViewSet.sh
+#if [ $? -ne 0 ]; then
+   #exit 1
+#fi
+
+#export CSCOPE_DB=$VIEW/cscope.out
+
+# go into view directorys root
+STARTDIR=$pwd
+cd $VIEW
+
+# build file database
+#find . -name '*.h' -o -name '*.cpp' > cscope.files.tmp
+
+# set relativ paths to absolute paths
+#sed "s#^\.#$VIEW#" cscope.files.tmp > cscope.files
+
+# build cscope database
+#cscope -b
+
+#rm cscope.files.tmp
+#rm cscope.files
+
+
+rm $VIEW/tags || echo tags file not found
+#exuberant-ctags -R TcmsGenSw/lib/dvstool/inc/
+#exuberant-ctags -a -R PIS/
+#exuberant-ctags -a -R -h ".h"
+#exuberant-ctags -a -R -h ".cpp"
+#exuberant-ctags -R --c++-kinds=+p TcmsGenSw/lib/dvstool/inc/
+#exuberant-ctags -a -R --c++-kinds=+p PIS/
+
+#ctags $(find $VIEW/.. -name '*.h' -o -name '*.cpp')
+ctags $(find $VIEW -name '*.h' -o -name '*.cpp')
+#ctags $(find $VIEW/PIS -name '*.h' -o -name '*.cpp')
+
+cd $STARTDIR

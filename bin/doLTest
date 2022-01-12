@@ -1,0 +1,43 @@
+#! /bin/bash
+if [ $# -ne 1 ]; then
+    echo "usage: $0 test_applist_file"
+    exit 1
+fi
+
+if [ -z $QMAKESPEC ]; then
+    echo "QMAKESPEC is empty"
+    exit 1
+fi
+
+isViewSet.sh
+export RUNTIME_VER=dbg
+if [ $? -ne 0 ]; then
+    exit 2
+fi
+
+MDT_PATH=/usr/local/bt/Modultest/
+cd ${MDT_PATH}
+
+OVERWRITE=${MDT_PATH}overwrite_cfg/
+NIGHTSCRIPT=$VIEW/PIS/test/tools/scripts/night_test.sh
+OUTDIR=$VIEW/../build_do2010_pis/i586-pc-linux-gnu/dbg/
+
+#./cpuinfo.sh &
+case $1 in
+    -q)
+        time ${NIGHTSCRIPT} -a -p ${OVERWRITE} -b ${OUTDIR} $VIEW/PIS/test/config/applist_quick_test
+        ;;
+    -n)
+        time ${NIGHTSCRIPT} -a -p ${OVERWRITE} -b ${OUTDIR} $VIEW/PIS/test/config/applist_night_test
+        ;;
+    *)
+        time ${NIGHTSCRIPT} -a -p ${OVERWRITE} -b ${OUTDIR} $1
+        ;;
+esac
+
+#mv /usr/local/bt/ModuleTest/cpuinfo.log HePisTestApplDir/log/
+
+echo "********************************************************"
+echo "***                   S U M M A R Y                  ***"
+echo "********************************************************"
+egrep 'app.*Totals' HePisTestApplDir/log/mod*

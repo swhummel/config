@@ -1,0 +1,105 @@
+#!/bin/bash
+
+#COFILES=`cleartool lsco -s -me -cview -r`
+COFILES=`cleartool lsco -avo -s -cvi`
+
+cnt=0
+echo "checked out:"
+for f in $COFILES; do
+    printf "[%02d] %s\n" $cnt $f;
+    file[$cnt]=$f
+    ((cnt++));
+done
+
+if [ $cnt -eq 0 ]; then
+    echo "No checkouts found."
+    exit
+fi
+
+quit=0;
+index=0;
+
+function next
+{
+    if [ $index -lt $(($cnt-1)) ]; then
+        ((index++));
+    else
+        quit=1
+    fi
+}
+    
+function prev
+{
+    if [ $index -gt 0 ]; then
+        ((index--));
+    fi
+}
+    
+function help
+{
+    echo "h    - this help"
+    echo "d    - text diff"
+    echo "g    - graphical diff"
+    echo "v    - version tree"
+    echo "ci   - checkin"
+    echo "cn   - checkin -nc"
+    echo "cinc - checkin -nc"
+    echo "unco - uncheckout -keep"
+    echo "n    - next"
+    echo "p    - prev"
+    echo "e    - vim"
+    echo "q    - quit"
+}
+    
+help
+
+while [ $quit -eq 0 ] ; do
+    currentFile=${file[$index]}
+    echo -n -e "\033[33;40m*************** $currentFile >\033[0m"
+
+    read cmd
+
+    case $cmd in
+        h)
+            help
+            ;;
+        d)
+            cleartool diff -ser -pred $currentFile
+            ;;
+        g)
+            cleartool diff -gra -pred $currentFile
+            ;;
+        v)
+            cleartool lsvtree -gra $currentFile
+            ;;
+        ci)
+            cleartool ci $currentFile
+            next
+            ;;
+        cn)
+            cleartool ci -nc $currentFile
+            next
+            ;;
+        cinc)
+            cleartool ci -nc $currentFile
+            next
+            ;;
+        unco)
+            cleartool unco -keep $currentFile
+            next
+            ;;
+        n)
+            next
+            ;;
+        p)
+            prev
+            ;;
+        e)
+            vim $currentFile
+            ;;
+        q)
+            quit=1
+            ;;
+    esac
+
+done

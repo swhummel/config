@@ -1,0 +1,144 @@
+#! /bin/bash
+
+#alias vi='~/etc/vim73/src/vim'
+#alias vi='~/bin/vim'
+#alias vim='~/bin/vim'
+#alias vimdiff='~/bin/vimdiff'
+
+alias make='nice -n 19 make -l 6.0 -j8'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+
+# cleartool stuff: checkout no-comments, ls checkouts, ls private files, create view, show version tree
+alias cleartool='export LANG=POSIX;export LC_ALL=POSIX;/opt/rational/clearcase/bin/cleartool'
+alias ct='cleartool'
+alias conc='cleartool co -nc'
+alias lsco='cleartool lsco -avo -cvi'
+alias lsco_old='cleartool lsco -me -r -cview'
+alias lsp='cleartool ls -rec -view_only'
+alias vt='LC_ALL=POSIX ct lsvtree -g'
+alias ctfmg='LC_ALL=POSIX ct findmerge -g'
+
+
+#alias vi='export LANG=de_DE.utf8;export LC_ALL=de_DE.utf8;vim'
+
+# various (mostly grep stuff: grep in source files, grep in xml files, grep in .pri/.pro files)
+# very useful!
+alias l='ls -a -l --color'
+alias ll='ls -a -l --color'
+# list all source files within '.'
+alias findsrc='find . -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hpp"'
+alias grep='grep --color'
+
+#alias vi='vim -X'
+#alias vim='vim -X'
+alias vi='vim --noplugin'
+alias vim='vim --noplugin'
+alias vimdiff='vimdiff --noplugin'
+
+# EXTREMELY useful: grep in all source files (case-insens) within '.' 
+#alias xgrep='find . -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hpp" | xargs egrep -i --color'
+alias xgrep='find . -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.inl" | xargs egrep -i'
+# grep in all source files (case-sens) within '.' (note the inconsistent naming :) )
+alias xigrep='find . -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hpp" | xargs egrep --color'
+# grep in all xml files
+alias xxgrep='find . -name "*.xml" -o -name "*.xsd" -o -name "*.xml.gz" | xargs egrep -i --color'
+# grep in all .pri/.pro files
+alias prgrep='find . -name "*.pr?" | xargs egrep -i --color'
+
+
+alias s='. ~/bin/setview'
+alias l='ls -lha --color'
+alias cdv='cd $VIEW/PIS/;echo $(pwd)'
+alias cdcc='cd /local/users/swhummel/ccviews/'
+alias note='date "+%n--- --- --- %d-%m-%Y-%H:%M --- --- ---%n%n" >> ~/notes; vim ~/notes'
+alias xterm='xterm -lc'
+alias st='ssh tucks'
+alias st2='ssh tucks2'
+alias st3='ssh swhummel@dehetucks3'
+alias zconest='ssh zcone-pisint@dehetucks'
+alias sd='. $HOME/bin/setDisplay'
+
+#mount tucks home on vm
+alias mounthome='mount.cifs //dehetucks3/swhummel /mnt/home_tucks/ -o username=swhummel'
+
+#mount view directory
+alias mountt2='mount -t nfs dehetucks2:/local/users/swhummel/ /mnt/tucks2-build/'
+alias mountt3='mount -t nfs dehetucks3:/local/users/swhummel/ /mnt/tucks3-build/'
+
+function cdv ()
+{
+    : ${VIEW:?} # check if view var is set
+    cd $VIEW/PIS || {
+        echo "ERROR: $VIEW does not exist";
+        return 1;
+    }
+    echo $(pwd);
+}
+
+# open find result in vi
+function fvi () { vi `find . -name "$1"`; }
+function fvt () { vt `find . -name "$1"`; }
+
+function grephepislog ()
+{
+    cd /usr/local/bt/Moduletests/;
+
+    if [ -z "$1" ]; then
+        GREPSTRING="SHU|Overview|basic|exceeds threshold"
+    else
+        GREPSTRING="SHU|Overview|basic|exceeds threshold|$1"
+    fi
+
+    if [ -z "$2" ]; then
+        egrep -i "${GREPSTRING}" HePisTestApplDir/log/app*/*He* > tmp.log
+    else
+        egrep -i -A $2 "${GREPSTRING}" HePisTestApplDir/log/app*/*He* > tmp.log
+    fi
+    vi tmp.log
+}
+alias ghe='grephepislog'
+
+function grephevsrvlog ()
+{
+    cd /usr/local/bt/Moduletests/;
+
+    if [ -z "$1" ]; then
+        GREPSTRING="SHU|Overview|basic|exceeds threshold"
+    else
+        GREPSTRING="SHU|Overview|basic|exceeds threshold|$1"
+    fi
+
+    if [ -z "$2" ]; then
+        egrep "${GREPSTRING}" HePisTestApplDir/log/app*/*hepisvisusrv* > tmp.log
+    else
+        egrep -A $2 "${GREPSTRING}" HePisTestApplDir/log/app*/*hepisvisusrvHe* > tmp.log
+    fi
+    vi tmp.log
+}
+alias ghev='grephevsrvlog'
+
+function grepcslog ()
+{
+    cd /usr/local/bt/Modultest/;
+
+    if [ -z "$1" ]; then
+        GREPSTRING="SHU"
+    else
+        GREPSTRING="SHU|$1"
+    fi
+
+    if [ -z "$2" ]; then
+        egrep "${GREPSTRING}" mdt_results/*/*/log/pcs-*.log > tmp.log
+    else
+        egrep -A $2 "${GREPSTRING}" mdt_results/*/*/log/pcs-*.log > tmp.log
+    fi
+    vi tmp.log
+}
+alias gpcs='grepcslog'
+
+

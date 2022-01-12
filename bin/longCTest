@@ -1,0 +1,9 @@
+#! /bin/bash
+if [ $# -ne 2 ]; then
+    echo "usage: $0 test_applist_file number_of_test_passes"
+    exit 1
+fi
+
+for ((i=0; $i<$2; i++)); do
+    doCTest $1
+done
