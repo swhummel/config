@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/bash -x
 if [ $# -ne 2 ]; then
     echo "usage: $0 PROJECT test_applist_file"
     exit 1
@@ -18,7 +18,7 @@ cd $TESTDIR
 echo "Using VIEW=$VIEW"
 rm -rf mdt_results/*
 
-taskset --cpu-list 0 $VIEW/tisc_pcs/pcs/tst/scripts/run_tests.sh -v $VIEW -b $VIEW/../build/pcsmdt$1 -c $2
+taskset --cpu-list 0 $VIEW/tisc_pos/positioning/tst/scripts/run_tests.sh -v $VIEW -b $VIEW/../build/posmdt$1 $2
 
 RESULT="Not set."
 
