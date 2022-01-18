@@ -373,8 +373,6 @@ endif
 "     Yruler : A ruler.
   iab Yruler 1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
 "
-  iab  Ydel  [...]
-  vmap ,del c [...] <ESC>
 
   vmap ,fig !figlet -k -d /usr/lib/figlet22/fonts -f mini
 "
@@ -390,18 +388,6 @@ endif
 " cab MAILNEWSFILES .article,.followup,.letter,mutt*[0-9],/postpone/*
 " cab MAILNEWSFILES *.article,*.followup,*.letter,*mutt*
   let MAILNEWSFILES = "*.article,*.followup,*.letter,mutt*"
-
-  ab MYADDR "Steffen Dettmer" <steffen@dett.de>
-  ab MYADDRI "Steffen Dettmer" <Steffen.DETTMER@ingenico.com>
-  ab MYADDRN "Steffen Dettmer" <steffen.dettmer@nomadrail.com>
-  ab Yoki   oki,<CR><CR>Steffen
-  ab Schönes Wochenende! Schönes Wochenende!
-
-"  ab Ywitzederwoche Bcc: Steffen Dettmer <sdettmer@ingenico.de>, susi, <CR>        Tanja Wehrmann <tanjawehrmann@gmx.de>,<CR>        Daddy <comp-dettmer@t-online.de>, <CR>        Frank Schwemer <face@face-works.de>, <CR>        gordok_t, <CR>        Gordon Lange <gordon_lange@yahoo.de>, <CR>        Elke und Fritz Richter <E.F.Richter@t-online.de>, <CR>        Mark Ruth <MarkRuth@web.de>, <CR>        Rayk Papenbrock <raykpapenbrock@gmx.de>, manfred
-
-  "Witze der Woche
-  "Formats the mail completly. "\r" is CR (unix LF)
-"  map ,wdw majd/-------<CR>jjd4djd/3. Neue Witze<CR>d5d/Sie können diese Witze bewerten<CR>d/----- End forwarded message<CR>dd:1/^Bcc: <CR>CYwitzederwoche<ESC>?^Bcc:<CR>J/^Subject:<CR>/------<CR>jjjgq/^oki,<CR>kmb'ajCYline2<ESC>jj^CYline1<ESC>jj:,'bs/^$/\r--------------------------------------------------------->8======\r/g<CR>'a
 
   ab Yline1 ------------------------------------------------------------------->8=======
   ab Yline2 =======8<-------------------------------------------------------------------
@@ -1611,7 +1597,7 @@ endfunction
 autocmd BufReadPost server.log* :setf gflog
 "autocmd BufReadPost *.log :setl nowrap
 autocmd BufReadPost server.log* :setl wrap
-autocmd BufReadPost pis.log,*HePisTestAppl*.log,*.modTest*.log :setf helog
+autocmd BufReadPost pis.log,*HePisTestAppl*.log,*.modTest*.log,tmp.log :setf helog
 " mszlog now is a syntax file (automatically loaded via setf mszlog)
 "so ~/.vim/mszlog.vim
 autocmd BufReadPost *.log :setf mszlog
