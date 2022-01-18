@@ -765,6 +765,7 @@ au BufNewFile,BufRead *.moc       setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.pl,*.rb,*.hs setl ai et sw=4 ts=4
 au BufNewFile,BufRead .vimrc      setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.html      setl ai et sw=2 ts=2
+au BufNewFile,BufRead *.vue       setl ai et sw=2 ts=2
 au BufNewFile,BufRead *.shtml     setl ai et sw=2 ts=2
 au BufNewFile,BufRead *.rb        setl ai et sw=2 ts=2
 au BufNewFile,BufRead *.erb       setl ai et sw=2 ts=2
