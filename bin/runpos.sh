@@ -18,7 +18,7 @@ cd $TESTDIR
 echo "Using VIEW=$VIEW"
 rm -rf mdt_results/*
 
-taskset --cpu-list 0 $VIEW/tisc_pos/positioning/tst/scripts/run_tests.sh -v $VIEW -b $VIEW/../build/posmdt$1 $2
+taskset --cpu-list 0 $VIEW/tisc_pos/positioning/tst/scripts/run_tests.sh -v $VIEW -b $VIEW/../build/posmdt$1 -c $2
 
 RESULT="Not set."
 
