@@ -733,7 +733,7 @@ nmap ,F :call FollowMode()<CR>
 au BufNewFile,BufRead *           call BufferDefaults()
 fun! BufferDefaults()
   " SHU setl tw=65 noet ts=8 sts=0
-  setl tw=78 noet ts=8 sts=0
+  setl tw=120 noet ts=4 sts=0
   call Enable_overlen_hi()
 endfun
 " Let Vim identify itself when editing emails with Mutt:
@@ -1598,7 +1598,7 @@ endfunction
 autocmd BufReadPost server.log* :setf gflog
 "autocmd BufReadPost *.log :setl nowrap
 autocmd BufReadPost server.log* :setl wrap
-autocmd BufReadPost pis.log,*HePisTestAppl*.log,*.modTest*.log,tmp.log :setf helog
+autocmd BufReadPost pis.log,*HePisTestAppl*.log,*.modTest*.log,tmp.log,pos-*.log :setf helog
 " mszlog now is a syntax file (automatically loaded via setf mszlog)
 "so ~/.vim/mszlog.vim
 autocmd BufReadPost *.log :setf mszlog
@@ -1732,7 +1732,9 @@ fun! Toggle_overlen_hi()
   endif
 endfunction
 " By default, enable
-call Enable_overlen_hi()
+"call Enable_overlen_hi()
+" By default, dienable
+call Disable_overlen_hi()
 
 " To automatically reconfigure buffers
 fun! PisSrcMode()
