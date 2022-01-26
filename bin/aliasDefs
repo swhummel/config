@@ -84,9 +84,11 @@ function cdv ()
 function fvi () { vi `find . -name "$1"`; }
 function fvt () { vt `find . -name "$1"`; }
 
+MODULETEST_BASE_DIR='/usr/local/bt/Moduletests/'
+
 function grephepislog ()
 {
-    cd /usr/local/bt/Moduletests/;
+    cd $MODULETEST_BASE_DIR
 
     if [ -z "$1" ]; then
         GREPSTRING="SHU|Overview|basic|exceeds threshold"
@@ -105,7 +107,7 @@ alias ghe='grephepislog'
 
 function grephevsrvlog ()
 {
-    cd /usr/local/bt/Moduletests/;
+    cd $MODULETEST_BASE_DIR
 
     if [ -z "$1" ]; then
         GREPSTRING="SHU|Overview|basic|exceeds threshold"
@@ -124,7 +126,7 @@ alias ghev='grephevsrvlog'
 
 function grepcslog ()
 {
-    cd /usr/local/bt/Modultest/;
+    cd $MODULETEST_BASE_DIR
 
     if [ -z "$1" ]; then
         GREPSTRING="SHU"
@@ -140,5 +142,24 @@ function grepcslog ()
     vi tmp.log
 }
 alias gpcs='grepcslog'
+
+function greposlog ()
+{
+    cd $MODULETEST_BASE_DIR
+
+    if [ -z "$1" ]; then
+        GREPSTRING="SHU"
+    else
+        GREPSTRING="SHU|$1"
+    fi
+
+    if [ -z "$2" ]; then
+        egrep "${GREPSTRING}" mdt_results/*/*/*/log/pos-*.log > tmp.log
+    else
+        egrep -A $2 "${GREPSTRING}" mdt_results/*/*/*/log/pos-*.log > tmp.log
+    fi
+    vi tmp.log
+}
+alias gpos='greposlog'
 
 
