@@ -132,7 +132,7 @@ endif
 "       hlsearch :  highlight search - show the current search pattern
 "       This is a nice feature sometimes - but it sure can get in the
 "       way sometimes when you edit.
-  set nohlsearch
+  set hlsearch
 "
 "       icon:       ...
   set noicon
@@ -264,7 +264,7 @@ set listchars=trail:·,tab:»·
 "
 "       shiftwidth:  Number of spaces to use for each
 "                    insertion of (auto)indent.
-  set   shiftwidth=8
+  set   shiftwidth=4
 "
 "       shortmess:   Kind of messages to show.   Abbreviate them all!
 "          New since vim-5.0v: flag 'I' to suppress "intro message".
@@ -291,7 +291,7 @@ set listchars=trail:·,tab:»·
   set nostartofline
 "
 "       tabstop
-  set   tabstop=8
+  set   tabstop=4
 
 " Set the colors for vim on "xterm"
 "  if &term=="xterm"
@@ -756,21 +756,23 @@ map ,rplc :if confirm("set auto reply?", "&yes\n&no", 2) == 1<CR>:normal ,rpl<CR
 "
 " Some more autocommand examples which set the values for
 " "autoindent", "expandtab", "shiftwidth", "tabstop", and "textwidth":
-au BufNewFile,BufRead *.[ch]      setl ai et sw=3 ts=3
+"au BufNewFile,BufRead *.[ch]      setl ai et sw=3 ts=3
 au BufNewFile,BufRead *.cc        setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.cpp,*.cxx setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.java      setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.idl       setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.moc       setl ai et sw=4 ts=4
+au BufNewFile,BufRead *.prepare   setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.pl,*.rb,*.hs setl ai et sw=4 ts=4
 au BufNewFile,BufRead .vimrc      setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.html      setl ai et sw=2 ts=2
 au BufNewFile,BufRead *.vue       setl ai et sw=2 ts=2
 au BufNewFile,BufRead *.shtml     setl ai et sw=2 ts=2
-au BufNewFile,BufRead *.rb        setl ai et sw=2 ts=2
-au BufNewFile,BufRead *.erb       setl ai et sw=2 ts=2
-au BufNewFile,BufRead confspec.prepare  setl tw=0 sts=0
-au BufNewFile,BufRead configure.{in,ac} setl tw=0 sts=0
+au BufNewFile,BufRead *.xml       setl ai et sw=2 ts=2
+"au BufNewFile,BufRead *.rb        setl ai et sw=2 ts=2
+"au BufNewFile,BufRead *.erb       setl ai et sw=2 ts=2
+"au BufNewFile,BufRead confspec.prepare  setl tw=0 sts=0
+"au BufNewFile,BufRead configure.{in,ac} setl tw=0 sts=0
 au BufNewFile,BufRead *.log       setl tw=0 sts=0 | :let b:std_nocolorcol=1 | call Disable_overlen_hi()
 " I used .utf8 to communicate with Browser plugin
 "   (mozex, ItsAllText or similar) and do not want to lose my
@@ -778,18 +780,9 @@ au BufNewFile,BufRead *.log       setl tw=0 sts=0 | :let b:std_nocolorcol=1 | ca
 if v:version >= 600
   au BufNewFile,BufRead *.utf8    setlocal noautoread
 endif
-" old nd-style
-au BufNewFile,BufRead /nomad*src* call NomadSrcMode()
-au BufNewFile,BufRead /nomad*ini  setf nomadini
-au BufNewFile,BufRead /nomad*log  setf nomadlog
-" new nd-style
-au BufNewFile,BufRead *nomad/*src*     call NomadSrcMode()
-au BufNewFile,BufRead *nomad/*ini  setf nomadini
-au BufNewFile,BufRead *nomad/*log  setf nomadlog
 " BT PIS
-" au BufNewFile,BufRead /vobs*      call PisSrcMode()
-"au BufNewFile,BufRead vobs/PIS*   call PisSrcMode()
-au BufNewFile,BufRead vobs/*      call PisSrcMode()
+"au BufNewFile,BufRead vobs/*      call PisSrcMode()
+au BufNewFile,BufRead *      call PisSrcMode() | call Enable_overlen_hi()
 
 au BufNewFile,BufRead Makefile*   setl tw=0 noet nolist ts=8 sts=0
 au BufNewFile,BufRead *.utf8      setl fileencoding=utf8
@@ -1598,7 +1591,8 @@ endfunction
 autocmd BufReadPost server.log* :setf gflog
 "autocmd BufReadPost *.log :setl nowrap
 autocmd BufReadPost server.log* :setl wrap
-autocmd BufReadPost pis.log,*HePisTestAppl*.log,*.modTest*.log,tmp.log,pos-*.log :setf helog
+"autocmd BufReadPost pis*.log,*HePisTestAppl*.log,*.modTest*.log,tmp.log,pos*.log :setf helog
+autocmd BufReadPost *.log :setf helog
 " mszlog now is a syntax file (automatically loaded via setf mszlog)
 "so ~/.vim/mszlog.vim
 autocmd BufReadPost *.log :setf mszlog
@@ -2012,7 +2006,6 @@ endfunction
 set expandtab
 set ic               "uncasesenitive
 set smartcase        "if in searchstring is an uppers case, switch to case senitive serach
-set hlsearch         "highlight search results
 set incsearch        "match the search string while typing
 set nowrap
 
@@ -2137,6 +2130,6 @@ set tags=$VIEW/tags
 
 " use in diff mode another colorscheme
 if &diff
-    colorscheme blue
+    colorscheme zellner
 endif
 

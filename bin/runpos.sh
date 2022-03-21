@@ -1,4 +1,4 @@
-#! /bin/bash -x
+#! /bin/bash
 if [ $# -ne 2 ]; then
     echo "usage: $0 PROJECT test_applist_file"
     exit 1
@@ -22,5 +22,8 @@ taskset --cpu-list 0 $VIEW/tisc_pos/positioning/tst/scripts/run_tests.sh -v $VIE
 
 RESULT="Not set."
 
-cat $(find mdt_results -name summary) | grep FAIL
+#mdt_results/2022.02.04-22.11.12/summary mdt_results/2022.02.04-22.11.12/STD/summary
+#cat $(find mdt_results -name summary)
+echo "*****************"
+grep FAIL $(find mdt_results -name summary)
 
