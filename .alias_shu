@@ -78,9 +78,11 @@ function grephepislog ()
     cd $MODULETEST_BASE_DIR
 
     if [ -z "$1" ]; then
-        GREPSTRING="SHU|Overview|basic|exceeds threshold"
+        #GREPSTRING="SHU|Overview|basicRclInfo|exceeds threshold"
+        GREPSTRING="SHU|Overview|exceeds threshold"
     else
-        GREPSTRING="SHU|Overview|basic|exceeds threshold|$1"
+        #GREPSTRING="SHU|Overview|basicRclInfo|exceeds threshold|$1"
+        GREPSTRING="SHU|Overview|exceeds threshold|$1"
     fi
 
     if [ -z "$2" ]; then
@@ -97,9 +99,9 @@ function grephevsrvlog ()
     cd $MODULETEST_BASE_DIR
 
     if [ -z "$1" ]; then
-        GREPSTRING="SHU|Overview|basic|exceeds threshold"
+        GREPSTRING="SHU|Overview|exceeds threshold"
     else
-        GREPSTRING="SHU|Overview|basic|exceeds threshold|$1"
+        GREPSTRING="SHU|Overview|exceeds threshold|$1"
     fi
 
     if [ -z "$2" ]; then
