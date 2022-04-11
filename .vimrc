@@ -39,11 +39,13 @@ if has("gui_running")
   endif
 endif
 
-  set noexpandtab
+"set noexpandtab
+set expandtab
 
 "       autoindent:  "off" as I usually do not write code.
 " set noautoindent
-  set autoindent
+set autoindent " but I do
+
 "  http://vim.wikia.com/wiki/Indenting_source_code
 "      If you plan on using file type based indentation, don't set
 "      'smartindent' or 'cindent'. You may still set 'autoindent', since it
@@ -69,7 +71,8 @@ endif
   set   autowrite
 "
 "       backup:  backups are for wimps  ;-)
-  set nobackup
+"  set nobackup
+  set nobackup " I'am a wimp
 "
 "       backspace:  '2' is much smarter. -> "help backspace"
   set   backspace=2
@@ -82,13 +85,14 @@ endif
 "
 "       background:  Are we using a "light" or "dark" background?
 " set   background=dark
+set   background=light
 "
 "       compatible:  Let Vim behave like Vi?  Hell, no!
   set nocompatible
 "
 "       comments default: sr:/*,mb:*,el:*/,://,b:#,:%,:XCOMM,n:>,fb:-
   " set   comments=sr:/*,mb:*,el:*/,b:#,:%,fb:-,n:>,n:)
-  set   comments=sr:/*,mb:*,el:*/,://,b:#,:%,fb:-,n:>,b:--
+  "set   comments=sr:/*,mb:*,el:*/,://,b:#,:%,fb:-,n:>,b:--
 "
 "       cpoptions you should get to know - source of many FAQs!  ;-)
 "       cpoptions:  "compatible options" to match Vi behaviour
@@ -99,10 +103,10 @@ endif
   set   dictionary=/usr/dict/words,/local/lib/german.words
 "
 "       digraph:    required for those umlauts
-"  set   digraph
+  set   digraph
 "
 "       errorbells: damn this beep!  ;-)
-"  set noerrorbells
+  set noerrorbells
 
 "       esckeys:    allow usage of cursor keys within insert mode
   set   esckeys
@@ -124,10 +128,10 @@ endif
   set   helpheight=0
 
 "       hidden:
-  set   hidden
+  "set   hidden
 "
 "       highlight=8b,db,es,hs,mb,Mn,nu,rs,sr,tb,vr,ws
-  set   highlight=8r,db,es,hs,mb,Mr,nu,rs,sr,tb,vr,ws
+  "set   highlight=8r,db,es,hs,mb,Mr,nu,rs,sr,tb,vr,ws
 "
 "       hlsearch :  highlight search - show the current search pattern
 "       This is a nice feature sometimes - but it sure can get in the
@@ -228,7 +232,7 @@ set listchars=trail:·,tab:»·
 "  set   path=.,,~/.P/vim,~/.P/vim/syntax,~/.P/vim/source,$VIM/syntax/
 " set   path=.,,~/.P/vim,~/.P/mutt/,~/.P/elm,~/.P/slrn/,~/.P/nn
 "
-  set path+=*/src,build/$HOSTNAME/*/src
+  "set path+=*/src,build/$HOSTNAME/*/src
 
 " Tags (use default)
 "   generate with e.g. "ctags -eR --c-kinds=+px .".
@@ -365,7 +369,7 @@ endif
   set   wrapmargin=1
 "
 "       writebackup:
-  set nowritebackup
+  "set nowritebackup
 
 " needing more entries than the default of 20
   set history=2000
@@ -741,18 +745,18 @@ endfun
 "au! BufNewFile,BufRead mutt* let @"="X-Editor: Vim-".version." http://www.vim.org/\n"|exe 'norm 1G}""P'
 "
 " reply address setting
-map ,rpl :%!~/work/ID-Mail/hashmail/set_reply.pl<CR>
-map ,rplc :if confirm("set auto reply?", "&yes\n&no", 2) == 1<CR>:normal ,rpl<CR>:endif<CR>
+"map ,rpl :%!~/work/ID-Mail/hashmail/set_reply.pl<CR>
+"map ,rplc :if confirm("set auto reply?", "&yes\n&no", 2) == 1<CR>:normal ,rpl<CR>:endif<CR>
 
 " set the textwidth to 65 characters for replies (email&usenet)
-  au BufNewFile,BufRead .letter,mutt*,nn.*,snd.* setl tw=65
+"  au BufNewFile,BufRead .letter,mutt*,nn.*,snd.* setl tw=65
 "  au BufNewFile,BufRead .letter,mutt*,nn.*,snd.* :normal ,rplc
-  au BufNewFile,BufRead ,bash-fc-*,/tmp/cvs* call Enable_paste()
-  au BufNewFile,BufRead *.git/COMMIT_EDITMSG call Enable_paste()
-  fun! NadineMod()
-    %s/n.woitziske@beratung-sk.de/NadineWoitziske@aol.com/igce
-  endfun
-  au BufNewFile,BufRead  .letter,mutt*,nn.*,snd.* call NadineMod()
+"  au BufNewFile,BufRead ,bash-fc-*,/tmp/cvs* call Enable_paste()
+"  au BufNewFile,BufRead *.git/COMMIT_EDITMSG call Enable_paste()
+"  fun! NadineMod()
+"    %s/n.woitziske@beratung-sk.de/NadineWoitziske@aol.com/igce
+"  endfun
+"  au BufNewFile,BufRead  .letter,mutt*,nn.*,snd.* call NadineMod()
 "
 " Some more autocommand examples which set the values for
 " "autoindent", "expandtab", "shiftwidth", "tabstop", and "textwidth":
@@ -773,29 +777,29 @@ au BufNewFile,BufRead *.xml       setl ai et sw=2 ts=2
 "au BufNewFile,BufRead *.erb       setl ai et sw=2 ts=2
 "au BufNewFile,BufRead confspec.prepare  setl tw=0 sts=0
 "au BufNewFile,BufRead configure.{in,ac} setl tw=0 sts=0
-au BufNewFile,BufRead *.log       setl tw=0 sts=0 | :let b:std_nocolorcol=1 | call Disable_overlen_hi()
+"au BufNewFile,BufRead *.log       setl tw=0 sts=0 | :let b:std_nocolorcol=1 | call Disable_overlen_hi()
 " I used .utf8 to communicate with Browser plugin
 "   (mozex, ItsAllText or similar) and do not want to lose my
 "   changes if browser behaves oddly, so no autoread here
-if v:version >= 600
-  au BufNewFile,BufRead *.utf8    setlocal noautoread
-endif
+"if v:version >= 600
+"  au BufNewFile,BufRead *.utf8    setlocal noautoread
+"endif
 " BT PIS
 "au BufNewFile,BufRead vobs/*      call PisSrcMode()
-au BufNewFile,BufRead *      call PisSrcMode() | call Enable_overlen_hi()
+"au BufNewFile,BufRead *      call PisSrcMode() | call Enable_overlen_hi()
 
-au BufNewFile,BufRead Makefile*   setl tw=0 noet nolist ts=8 sts=0
-au BufNewFile,BufRead *.utf8      setl fileencoding=utf8
-augroup filetypedetect
-  au! BufRead,BufNewFile *.sce setfiletype scilab
-augroup END
+"au BufNewFile,BufRead Makefile*   setl tw=0 noet nolist ts=8 sts=0
+"au BufNewFile,BufRead *.utf8      setl fileencoding=utf8
+"augroup filetypedetect
+"  au! BufRead,BufNewFile *.sce setfiletype scilab
+"augroup END
 
-au BufWrite *.[ch]      call KtwsAuto()
-au BufWrite *.cc        call KtwsAuto()
-au BufWrite *.java      call KtwsAuto()
-au BufWrite *.idl       call KtwsAuto()
-au BufWrite *.rb        call KtwsAuto()
-au BufWrite *.erb       call KtwsAuto()
+"au BufWrite *.[ch]      call KtwsAuto()
+"au BufWrite *.cc        call KtwsAuto()
+"au BufWrite *.java      call KtwsAuto()
+"au BufWrite *.idl       call KtwsAuto()
+"au BufWrite *.rb        call KtwsAuto()
+"au BufWrite *.erb       call KtwsAuto()
 
 " au BufEnter *.java      set ai    sw=4 ts=4
 " au BufEnter */drafts/*  set tw=72
@@ -850,7 +854,7 @@ autocmd BufWritePost ~/.vimrc   so ~/.vimrc
    map ,qp   vip:s/^/> /<CR>
 "
 "      ,qp = quote current paragraph
-"            just do the quoting as a substitution:
+""            just do the quoting as a substitution:
   vmap ,qp    :s/^/> /<CR>
 "
 "       ## = comment current inner paragraph with '#':
@@ -1780,7 +1784,13 @@ nnoremap <Leader>e :e <C-R>=expand('%:p:h') . '/'<CR>
 "   first TAB completes to longest unique match, second prints
 "   list. Extra goodie: third press iterates all matches (like
 "   vim default)
-set wildmode=longest,list,list:full
+set wildmenu         "show menu with possible tab completions
+set wildmode=longest,list
+"set wildmode=longest,list,full "double tab opens the menu
+set wildignore+=*.a,*.o
+set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
+set wildignore+=.DS_Store,.git,.hg,.svn
+set wildignore+=*~,*.swp,*.tmp
 
 " https://github.com/tpope/vim-pathogen:
 " call pathogen#infect()
@@ -2133,3 +2143,14 @@ if &diff
     colorscheme zellner
 endif
 
+syntax on
+filetype plugin on
+filetype indent on
+
+set   textwidth=240
+highlight ColorColumn ctermbg=7 guibg=#2c2d27
+"highlight ColorColumn ctermbg=235 guibg=#2c2d27
+let &colorcolumn=join(range(81,81),",")
+"let &colorcolumn=join(range(81,999),",")
+"let &colorcolumn="80,".join(range(120,999),",")
+" 34567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
