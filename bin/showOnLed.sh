@@ -35,7 +35,7 @@ while [[ $# -gt 0 ]]; do
             exit 0
             ;;
         -t)
-            sudo ${UTILPATH}/text-scroller ${FIX_PARAMETERS} -f ${UTILPATH}/../fonts/9x18B.bdf -y 7 "$2"
+            sudo ${UTILPATH}/text-scroller ${FIX_PARAMETERS} -C 255,0,0 -f ${UTILPATH}/../fonts/9x18B.bdf -y 7 "$2"
             shift # past argument
             shift # past value
             exit 0
