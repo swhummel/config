@@ -763,6 +763,9 @@ endfun
 "au BufNewFile,BufRead *.[ch]      setl ai et sw=3 ts=3
 au BufNewFile,BufRead *.cc        setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.cpp,*.cxx setl ai et sw=4 ts=4
+au BufNewFile,BufRead *.h         setl ai et sw=4 ts=4
+au BufNewFile,BufRead *.sh        setl ai et sw=4 ts=4
+au BufNewFile,BufRead *.md        setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.java      setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.idl       setl ai et sw=4 ts=4
 au BufNewFile,BufRead *.moc       setl ai et sw=4 ts=4
