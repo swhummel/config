@@ -15,8 +15,8 @@ TESTDIR=/usr/local/bt/Moduletests
 cd $TESTDIR
 
 # enable faketime
-#ls "`pwd`/FAKETIME_TIMESTAMP_FILE" || echo "Warning: faketime is disabled"
-#export FAKETIME_TIMESTAMP_FILE="`pwd`/FAKETIME_TIMESTAMP_FILE"
+ls "`pwd`/FAKETIME_TIMESTAMP_FILE" || echo "Warning: faketime is disabled"
+export FAKETIME_TIMESTAMP_FILE="`pwd`/FAKETIME_TIMESTAMP_FILE"
 
 #./cpuinfo.sh &
 
@@ -32,3 +32,10 @@ echo "********************************************************"
 echo "***                   S U M M A R Y                  ***"
 echo "********************************************************"
 egrep 'app.*Totals' HePisTestApplDir/log/mod*
+
+# sync time: because auto sync is diabled and with faketime the env sync is also
+# not done
+NTP_SERVER_IP=IAA0631.bt.bombardier.net
+echo "Try to sync time with ${NTP_SERVER_IP}"
+#ntpdate $NTP_SERVER_IP >> /dev/null
+ntpdate $NTP_SERVER_IP

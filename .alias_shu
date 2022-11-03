@@ -26,6 +26,7 @@ alias ll='ls -a -l --color'
 # list all source files within '.'
 alias findsrc='find . -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hpp"'
 alias grep='grep --color'
+alias egrep='egrep --color'
 
 #alias vi='vim'
 #alias vi='vim -X'
@@ -72,6 +73,12 @@ function fvi () { vi `find . -name "$1"`; }
 function fvt () { vt `find . -name "$1"`; }
 
 MODULETEST_BASE_DIR='/usr/local/bt/Moduletests/'
+
+#
+# VERY USEFUL
+#
+#find . -name '*.cpp' | xargs egrep --col '[.>] *\<process\> *\('
+#
 
 function grephepislog ()
 {

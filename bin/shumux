@@ -13,25 +13,25 @@ tmux new-session 'work' \; \
     neww -n notes \; \
     selectw -t 0 \; \
     send-keys 'sudo su -' C-m \; \
-    send-keys 'cd /home/swhummel/work/tisc-src/vobs/' C-m \; \
+    send-keys "cd '$VIEW'" C-m \; \
     send-keys 's' C-m \; \
     send-keys 'cd /usr/local/bt/Moduletests/' C-m \; \
     selectw -t 1 \; \
-    send-keys 'cd /home/swhummel/work/tisc-src/vobs/' C-m \; \
+    send-keys "cd '$VIEW'" C-m \; \
     send-keys 's' C-m \; \
     send-keys 'cd ..' C-m \; \
     send-keys 'time mb -n pismdt*' C-m \; \
     selectw -t 2 \; \
-    send-keys 'cd /home/swhummel/work/tisc-src/vobs/' C-m \; \
+    send-keys "cd '$VIEW'" C-m \; \
     send-keys 's' C-m \; \
     send-keys 'cdv' C-m \; \
     send-keys 'fswp' C-m \; \
     selectw -t 3 \; \
-    send-keys 'cd /home/swhummel/work/tisc-src/vobs/' C-m \; \
+    send-keys "cd '$VIEW'" C-m \; \
     send-keys 's' C-m \; \
     send-keys 'cdv' C-m \; \
     selectw -t 4 \; \
-    send-keys 'cd /home/swhummel/work/tisc-src/vobs/' C-m \; \
+    send-keys "cd '$VIEW'" C-m \; \
     send-keys 's' C-m \; \
     send-keys 'cdv' C-m \; \
     selectw -t 5 \; \
