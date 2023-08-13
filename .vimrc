@@ -222,6 +222,13 @@ if version >= 700
 endif
 
 
+" folding
+"augroup remember_folds
+"    autocmd!
+"        autocmd BufWinLeave notes mkview
+"        autocmd BufWinEnter notes silent! loadview
+"augroup END
+
 " Tabulatoren sollten bei uns eigentlich 4 Zeichen breit sein und mit
 " Leerzeichen erweitert werden. Folgende Zeilen in der .vimrc stellen das unter
 " anderem ein:
