@@ -1,0 +1,20 @@
+#! /bin/bash
+
+#git log --all --grep '880300'
+
+#
+#git log --pretty="format:%Cgreen%H %Cblue%s" --grep '880300'
+#b60394d681111ed25009fedb13376f56d2287b26 RTC-880300: LNVG: GPSSP uses wrong trainConfigProvider
+#fe05b479f55b72342ad21de854d21b76669aa513 RTC-880300: LNVG: GPSSP uses wrong trainConfigProvider
+
+#git log --pretty="format:%Cgreen%H %Cblue%s" --name-status --grep '880300'
+#b60394d681111ed25009fedb13376f56d2287b26 RTC-880300: LNVG: GPSSP uses wrong trainConfigProvider
+#M       vobs/TcmsGenSw/lib/gpssp/doc/3-Overview.md
+#M       vobs/TcmsGenSw/lib/gpssp/doc/4-BehavioralArchitecture.md
+#M       vobs/TcmsGenSw/lib/gpssp/doc/5-StructuralArchitecture.md
+#
+#fe05b479f55b72342ad21de854d21b76669aa513 RTC-880300: LNVG: GPSSP uses wrong trainConfigProvider
+#M       vobs/TcmsGenSw/lib/gpssp/doc/3-Overview.md
+#M       vobs/TcmsGenSw/lib/gpssp/doc/4-BehavioralArchitecture.md
+#M       vobs/TcmsGenSw/lib/gpssp/doc/5-StructuralArchitecture.md
+
