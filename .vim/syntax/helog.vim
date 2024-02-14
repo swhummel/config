@@ -36,7 +36,8 @@ syn match eevvarunknownx    / \S\+ now UNKNOWN\/.*/ contained
 
 "if !exists("b:did_helog_syntax_inits")
 "  let b:did_helog_syntax_inits = 1
-  hi shuLine    ctermfg=Yellow      guifg=Yellow          ctermbg=LightRed
+  "hi shuLine    ctermfg=Yellow      guifg=Yellow          ctermbg=LightRed
+  hi shuLine    ctermfg=Yellow      guifg=Yellow          ctermbg=darkred
   hi debugLine  ctermfg=darkblue    guifg=darkblue
   hi warnLine   ctermfg=yellow      guifg=yellow
   hi errLine    ctermfg=red         guifg=red

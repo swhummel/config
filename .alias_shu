@@ -86,11 +86,11 @@ function grephepislog ()
     cd $MODULETEST_BASE_DIR
 
     if [ -z "$1" ]; then
-        #GREPSTRING="SHU|Overview|basicRclInfo|exceeds threshold"
-        GREPSTRING="SHU|Overview|exceeds threshold"
+        #GREPSTRING="SHU |Overview|basicRclInfo|exceeds threshold"
+        GREPSTRING="SHU |Overview|exceeds threshold"
     else
-        #GREPSTRING="SHU|Overview|basicRclInfo|exceeds threshold|$1"
-        GREPSTRING="SHU|Overview|exceeds threshold|$1"
+        #GREPSTRING="SHU |Overview|basicRclInfo|exceeds threshold|$1"
+        GREPSTRING="SHU |Overview|exceeds threshold|$1"
     fi
 
     if [ -z "$2" ]; then
@@ -107,9 +107,9 @@ function grephevsrvlog ()
     cd $MODULETEST_BASE_DIR
 
     if [ -z "$1" ]; then
-        GREPSTRING="SHU|Overview|exceeds threshold"
+        GREPSTRING="SHU |Overview|exceeds threshold"
     else
-        GREPSTRING="SHU|Overview|exceeds threshold|$1"
+        GREPSTRING="SHU |Overview|exceeds threshold|$1"
     fi
 
     if [ -z "$2" ]; then
@@ -126,9 +126,9 @@ function grepcslog ()
     cd $MODULETEST_BASE_DIR
 
     if [ -z "$1" ]; then
-        GREPSTRING="SHU"
+        GREPSTRING="SHU "
     else
-        GREPSTRING="SHU|$1"
+        GREPSTRING="SHU |$1"
     fi
 
     if [ -z "$2" ]; then
@@ -145,9 +145,9 @@ function greposlog ()
     cd $MODULETEST_BASE_DIR
 
     if [ -z "$1" ]; then
-        GREPSTRING="SHU"
+        GREPSTRING="SHU "
     else
-        GREPSTRING="SHU|$1"
+        GREPSTRING="SHU |$1"
     fi
 
     if [ -z "$2" ]; then

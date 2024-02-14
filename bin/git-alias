@@ -18,3 +18,13 @@
 #M       vobs/TcmsGenSw/lib/gpssp/doc/4-BehavioralArchitecture.md
 #M       vobs/TcmsGenSw/lib/gpssp/doc/5-StructuralArchitecture.md
 
+#better write it into ~/.gitconfig
+#16 [alias]
+#17     d = difftool
+#18     find = log --pretty=\"format:%Cgreen%H %Cblue%s\" --grep
+#19     findFiles = log --pretty=\"format:%Cgreen%H %Cblue%s\" --name-status --grep
+
+
+#swhummel@RefVm5:~ (master * u=) $ git log -1 --oneline
+#89387de (HEAD -> master, origin/master, origin/HEAD) Add some git helper
+
