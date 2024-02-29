@@ -21,13 +21,13 @@ export CLEARCASE_AVOBS="/vobs/PIS /vobs/TcmsGenSw /vobs/tisc_ccu-c /vobs/tisc_pc
 export QMAKESPEC=linux-i586-g++
 #export QMAKESPEC=linux-g++
 export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='07;38;5;012'    # light blue invers
+export GREP_COLOR='mt=07;38;5;012'    # light blue invers
 
 test -z "${LESS/*-R*/}" || export LESS="$LESS -R"
 test -z "${LS_OPTIONS}" && export LS_OPTIONS='--color=auto'
 
 # make bash's default behaviour interactive -> bashaliases can be used in vim
-set shellcmdflag=-ic
+#set shellcmdflag=-ic
 #
 ## don't put duplicate lines in the history. See bash(1) for more options
 ## ... or force ignoredups and ignorespace
