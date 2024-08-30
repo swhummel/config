@@ -9,7 +9,6 @@ elseif exists("b:current_syntax")
   finish
 endif
 
-syn match shuLine   /.*SHU.*/
 syn match debugLine /.*Deb p5.*/
 syn match warnLine  /.*Wrn p1.*/
 syn match errLine   /.*Err p0.*/
@@ -33,17 +32,19 @@ syn match eevvarknown   / \S\+:New Value KNOWN\/.*/ contained
 syn match eevvarknown0  / \S\+:New Value KNOWN\/0/ contained
 syn match eevvarunknown / \S\+:New Value UNKNOWN\/.*/ contained
 syn match eevvarunknownx    / \S\+ now UNKNOWN\/.*/ contained
+syn match shuLine   /.*SHU.*/
+"syn match shu   /SHU/ contained
 
 "if !exists("b:did_helog_syntax_inits")
 "  let b:did_helog_syntax_inits = 1
-  "hi shuLine    ctermfg=Yellow      guifg=Yellow          ctermbg=LightRed
-  hi shuLine    ctermfg=Yellow      guifg=Yellow          ctermbg=darkred
-  hi debugLine  ctermfg=darkblue    guifg=darkblue
+  hi shuLine        ctermfg=yellow      guifg=yellow          ctermbg=darkred
+  "hi shu        ctermfg=yellow      guifg=yellow          ctermbg=darkred
+  hi debugLine  ctermfg=darkgray    guifg=darkgray
   hi warnLine   ctermfg=yellow      guifg=yellow
   hi errLine    ctermfg=red         guifg=red
   hi infoLine   ctermfg=green       guifg=green
   hi info2Line  ctermfg=darkgreen   guifg=darkgreen
-  hi info4Line  ctermfg=darkgray    guifg=darkgray
+  hi info4Line  ctermfg=darkblue    guifg=darkblue
   hi sta3Line   ctermfg=darkmagenta guifg=darkmagenta
   hi icdLine    ctermfg=blue        guifg=blue
   hi header     ctermfg=darkblue    guifg=darkblue

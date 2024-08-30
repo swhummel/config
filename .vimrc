@@ -44,9 +44,18 @@ set listchars=tab:»·,trail:¤ ",eol:¶,precedes:«,extends:»
 "set listchars=tab:»­,trail:· ",eol:¶,precedes:«,extends:»
 "whitespace example:     
 "tab example:	
+"
+" *****************************************************************************
+" highlighting
+" *****************************************************************************
+"match Todo /TODO:\?\|SHU:\?\|todo:\?/
+"match Todo /TODO:\?\|SHU :\?\|todo:\?\|TODO SHU:\?\|TODO SHU remove this log statement - should never be commited:\?/
+match Todo /TODO SHU remove this log statement - should never be commited:\?\|TODO SHU:\?\|SHU:\?\|TODO:\?/
 
 
+" *****************************************************************************
 " set tags db
+" *****************************************************************************
 set tags=$VIEW/tags
 
 " *****************************************************************************
@@ -71,20 +80,6 @@ let &colorcolumn=join(range(81,81),",")
 syntax on
 filetype plugin on
 filetype indent on
-
-" ********************************************
-" minibuf settings
-" ********************************************
-"let g:miniBufExplSplitBelow = 1
-"let g:miniBufExplVSplit = 35
-"let g:miniBufExplMapWindowNavVim = 1
-"let g:miniBufExplMapCTabSwitchBufs = 1
-
-""let g:miniBufExplMaxSize = 60
-""let g:miniBufExplMinSize = 60
-""hi link MBEVisibleChanged Error
-""hi MBEChanged guibg=darkblue ctermbg=darkblue termbg=white
-""hi MBEChanged guibg=darkblue ctermbg=darkblue
 
 " ********************************************
 " keyboard mappings
@@ -157,7 +152,6 @@ autocmd BufReadPost *.handlebars :set syntax=handlebars
 autocmd BufReadPost *.json :set syntax=json
 autocmd BufReadPost *.awk :set syntax=awk
 
-
 " ********************************************
 " Abbreviations - General Editing - Inserting Dates and Times
 " ********************************************
@@ -176,6 +170,9 @@ autocmd BufReadPost *.awk :set syntax=awk
 "
   iab YDATE <C-R>=strftime("%a %b %d %T %Z %Y")<CR>
 " Example: Tue Dec 16 12:07:00 CET 1997
+
+  iab dmt <C-R>=strftime("%d.%m.-%H:%M")<CR>
+
 "
 " On Windows the functions "strftime" seems to have a different
 " format.  Therefore the following may be necessary:  [980730]
@@ -247,6 +244,8 @@ au BufEnter *.sh        set ai et sw=4 ts=4
 au BufEnter *.asn1      set ai et sw=4 ts=4
 au BufEnter *.xml       set ai et sw=2 ts=2
 au BufEnter *.xslt      set ai et sw=2 ts=2
+au BufEnter *.uml       set ai et sw=2 ts=2
+au BufEnter *.md        set ai et sw=2 ts=2
 
 au BufEnter *.json      set ai et sw=4 ts=4 filetype=json
 "autocmd BufNewFile,BufRead *.json set ft=javascript
