@@ -34,7 +34,10 @@ test -z "${LS_OPTIONS}" && export LS_OPTIONS='--color=auto'
 export HISTCONTROL=ignoredups:ignorespace
 #
 ## append to the history file, don't overwrite it
+#  and wite it on every prompt
 shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+
 #
 ## for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 export HISTSIZE=10000
