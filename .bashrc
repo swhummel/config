@@ -45,6 +45,7 @@ export LOCALE=UTF-8
 export LC_ALL=en_US.UTF-8
 #export LC_ALL=en_US.utf8
 
+export EDITOR=vim
 
 #echo ""
 #echo "Executing user's: `whoami` bashrc... SHLVL: ${SHLVL}"
