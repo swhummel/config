@@ -44,10 +44,10 @@ syn match shuLine   /.*SHU.*/
   hi errLine    ctermfg=red         guifg=red
   hi infoLine   ctermfg=green       guifg=green
   hi info2Line  ctermfg=darkgreen   guifg=darkgreen
-  hi info4Line  ctermfg=darkblue    guifg=darkblue
+  hi info4Line  ctermfg=blue    guifg=blue
   hi sta3Line   ctermfg=darkmagenta guifg=darkmagenta
   hi icdLine    ctermfg=blue        guifg=blue
-  hi header     ctermfg=darkblue    guifg=darkblue
+  hi header     ctermfg=blue    guifg=blue
   hi passLine   ctermfg=green       guifg=green
   hi xpassLine  ctermfg=red         guifg=red
   hi failLine   ctermfg=red         guifg=red
