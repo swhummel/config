@@ -1,6 +1,7 @@
 #! /bin/bash
 if [ $# -ne 2 ]; then
-    echo "usage: $0 PROJECT test_applist_file"
+    echo "usage: $0 PROJECT test.conf"
+    echo "    test.conf can be found here vobs/tisc_pcs/pcs/tst/scripts/test.conf"
     exit 1
 fi
 
