@@ -1,15 +1,16 @@
 #! /bin/bash +x
 
 if [ $# -ne 1 ]; then
-    echo "usage: $0 reqex for mb -l"
+    echo "Usage: $0 seachstring for mb -l"
+    echo "Note: egrep is used, so the \* is not needed"
     exit 1
 fi
 
-countBuildTargets=$(mb -l | egrep -i $1 | wc -l)
+countBuildTargets=$(mb -l | egrep '\- ' | egrep -i "$1" | wc -l)
 echo "Found $countBuildTargets build targets with $1"
 
 buildTargetIndex=0;
-for buildTarget in $(mb -l | egrep -i $1 | cut -d" "  -f 2); do
+for buildTarget in $(mb -l | egrep '\- ' | egrep -i "$1" | cut -d" "  -f 2); do
     let "buildTargetIndex+=1"
     mb -n $buildTarget > build.out 2>&1;
 
