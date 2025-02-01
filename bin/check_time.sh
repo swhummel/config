@@ -5,6 +5,11 @@ LOCAL_TIME=$(date +"%Y-%m-%d %H:%M:%S")
 
 # Zeit von einem NTP-Server abrufen
 SERVER_TIME=$(curl -s --head time.google.com | grep -i "^date:" | cut -d' ' -f3-)
+if [ -z "$SERVER_TIME" ]; then
+    notify-send "kein Netz" "curl hat kein Ergebnis geliefert"
+    echo "kein Netz"
+    exit -1
+fi
 
 # Ausgabe der Zeiten
 #echo "Lokale Zeit: $LOCAL_TIME"
