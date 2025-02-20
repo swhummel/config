@@ -12,7 +12,7 @@ echo "Found $countBuildTargets build targets with $1"
 buildTargetIndex=0;
 for buildTarget in $(mb -l | egrep '\- ' | egrep -i "$1" | cut -d" "  -f 2); do
     let "buildTargetIndex+=1"
-    mb -n $buildTarget > build.out 2>&1;
+    mb -n $buildTarget -D > build.out 2>&1;
 
     if [ $? -eq 0 ]
     then
