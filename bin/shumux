@@ -36,5 +36,5 @@ tmux new-session 'work' \; \
     send-keys 'cdv' C-m \; \
     selectw -t 5 \; \
     send-keys 'sudo su -' C-m \; \
-    send-keys 'vi /root/currentSprint.txt' C-m \; \
+    send-keys 'safe_vim_open.sh /root/currentSprint.txt' C-m \; \
     selectw -t 1
