@@ -51,10 +51,6 @@ alias cdcc='cd /local/users/swhummel/ccviews/'
 #alias note='date "+%n--- --- --- %d-%m-%Y-%H:%M --- --- ---%n%n" >> ~/notes; vim ~/notes'
 alias note='vim ~/notes'
 alias xterm='xterm -lc'
-alias st='ssh tucks'
-alias st2='ssh tucks2'
-alias st3='ssh -Y swhummel@dehetucks3'
-alias zconest='ssh zcone-pisint@dehetucks'
 alias sd='. $HOME/bin/setDisplay'
 
 
