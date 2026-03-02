@@ -233,7 +233,7 @@ endif
 au BufEnter *.[ch]      set ai et sw=4 ts=4
 au BufEnter *.cc        set ai et sw=4 ts=4
 au BufEnter *.cpp       set ai et sw=4 ts=4
-au BufEnter *.java      set ai et sw=4 ts=4
+au BufEnter *.java      set ai et sw=4 ts=4 filetype=java
 au BufEnter *.idl       set ai et sw=4 ts=4
 au BufEnter *.p[ml]     set ai et sw=4 ts=4
 au BufEnter .vimrc      set ai et sw=4 ts=4
@@ -248,6 +248,7 @@ au BufEnter *.uml       set ai et sw=2 ts=2
 au BufEnter *.md        set ai et sw=2 ts=2
 
 au BufEnter *.json      set ai et sw=4 ts=4 filetype=json
+au BufEnter *.groovy     set ai et sw=4 ts=4 filetype=groovy
 "autocmd BufNewFile,BufRead *.json set ft=javascript
 
 "au BufNewFIle,BufFilePre,BufRead *.md set filetype=markdown

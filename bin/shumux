@@ -20,7 +20,7 @@ tmux new-session 'work' \; \
     send-keys "cd '$VIEW'" C-m \; \
     send-keys 's' C-m \; \
     send-keys 'cd ..' C-m \; \
-    send-keys 'time mb -n pismdtSTD' C-m \; \
+    send-keys '#time mb -n pismdtSTD' C-m \; \
     selectw -t 2 \; \
     send-keys "cd '$VIEW'" C-m \; \
     send-keys 's' C-m \; \
