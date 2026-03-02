@@ -13,6 +13,7 @@ test -e ~/.vboxmanage-completion.bash && . ~/.vboxmanage-completion.bash
 test -e ~/.multibuild-completion.bash && . ~/.multibuild-completion.bash
 
 export PATH=~/bin/:${PATH}
+export PATH=$PATH:/sbin
 
 export CLEARCASE_CMNT_PN=~/.cc_comment_cache
 #export CLEARCASE_AVOBS="/vobs/PIS /vobs/TcmsGenSw /vobs/tisc_pos"
@@ -28,7 +29,9 @@ test -z "${LS_OPTIONS}" && export LS_OPTIONS='--color=auto'
 
 # make bash's default behaviour interactive -> bashaliases can be used in vim
 #set shellcmdflag=-ic
-#
+
+HISTTIMEFORMAT='%F %T' # datestamps for commands
+
 ## don't put duplicate lines in the history. See bash(1) for more options
 ## ... or force ignoredups and ignorespace
 export HISTCONTROL=ignoredups:ignorespace
