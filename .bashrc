@@ -30,11 +30,12 @@ test -z "${LS_OPTIONS}" && export LS_OPTIONS='--color=auto'
 # make bash's default behaviour interactive -> bashaliases can be used in vim
 #set shellcmdflag=-ic
 
-HISTTIMEFORMAT='%F %T' # datestamps for commands
+#HISTTIMEFORMAT='%F %T: ' # datestamps for commands
+HISTTIMEFORMAT='%y-%m-%d %T ' # datestamps for commands
 
 ## don't put duplicate lines in the history. See bash(1) for more options
 ## ... or force ignoredups and ignorespace
-export HISTCONTROL=ignoredups:ignorespace
+export HISTCONTROL=ignoredups:ignorespace:erasedups
 #
 ## append to the history file, don't overwrite it
 #  and wite it on every prompt
