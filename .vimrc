@@ -44,7 +44,7 @@ set listchars=tab:»·,trail:¤ ",eol:¶,precedes:«,extends:»
 "set listchars=tab:»­,trail:· ",eol:¶,precedes:«,extends:»
 "whitespace example:     
 "tab example:	
-set lcs=leadmultispace:\ \ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·
+set lcs=leadmultispace:\ \ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·
 
 "
 " *****************************************************************************
