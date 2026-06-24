@@ -41,6 +41,8 @@ alias xigrep='find . -name "*.cpp" -o -name "*.c" -o -name "*.h" -o -name "*.hpp
 alias xxgrep='find . -name "*.xml" -o -name "*.xsd" -o -name "*.xml.gz" | xargs egrep -i --color'
 # grep in all .pri/.pro files
 alias prgrep='find . -name "*.pr?" | xargs egrep -i --color'
+# grep in als files
+alias fgrep='find . -type f | xargs egrep -i --color'
 
 
 alias s='. ~/bin/setview'
