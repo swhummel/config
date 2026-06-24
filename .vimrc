@@ -188,10 +188,10 @@ autocmd BufReadPost *.awk :set syntax=awk
 ab abhead   /**
             \<CR>Declaration of class adapter::code::CodingStyleExample.
             \<CR>
-            \<CR>@copyright Copyright (C) 2022 Bombardier Transportation.
+            \<CR>@copyright Copyright (C) 2026 Alstom.
             \<CR>This software is supplied under the terms of a license agreement or
-            \<CR>nondisclosure agreement with Bombardier Transport, and may not be copied or
-            \<CR>disclosed except in accordance with the terms of that agreement.
+            \<CR>nondisclosure agreement with Bombardier Transport, and may not be copied
+            \<CR>or disclosed except in accordance with the terms of that agreement.
             \<CR>/
 
 " abbreviation comment a function
