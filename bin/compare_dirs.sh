@@ -255,8 +255,6 @@ if ((${#differing_paths[@]} == 0)); then
 fi
 
 if ((show_diff == 0 && interactive_diff == 0)); then
-  echo
-  echo "Diff output skipped. Use --show-diff or --interactive-diff."
   exit 0
 fi
 
