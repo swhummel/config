@@ -158,3 +158,38 @@ function greposlog ()
 alias gpos='greposlog'
 
 
+# Git completion laden
+if [ -f /usr/share/bash-completion/completions/git ]; then
+    source /usr/share/bash-completion/completions/git
+fi
+
+# Completion für g
+if type __git_complete >/dev/null 2>&1; then
+    complete -r g 2>/dev/null
+        __git_complete g git
+fi
+
+g() {
+    local logfile="$HOME/git_performance.log"
+    local start end runtime rc
+    local cmd="git $*"
+
+    start=$(date +%s.%N)
+
+    command git "$@"
+    rc=$?
+
+    end=$(date +%s.%N)
+    runtime=$(printf "%.4fs" "$(awk "BEGIN {print $end - $start}")")
+
+
+    local logline
+    logline="$(date '+%Y%m%d-%H:%M:%S') - ${runtime} - ${cmd}"
+
+    echo "$logline" >> "$logfile"
+    echo "$logline" >&2
+
+    return $rc
+}
+
+
