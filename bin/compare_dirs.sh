@@ -119,6 +119,7 @@ declare -A right_entries=()
 declare -A left_kinds=()
 declare -A right_kinds=()
 declare -A all_entries=()
+declare -A subtree_problem=()
 
 collect_entries() {
   local root="$1"
@@ -146,6 +147,39 @@ done < <(collect_entries "$dir2")
 
 mapfile -t sorted_paths < <(printf '%s\n' "${!all_entries[@]}" | sed '/^$/d' | sort)
 
+mark_problem_ancestors() {
+  local rel_path="$1"
+  local ancestor="$rel_path"
+
+  while [[ "$ancestor" == */* ]]; do
+    ancestor="${ancestor%/*}"
+    subtree_problem["$ancestor"]=1
+  done
+}
+
+for rel_path in "${sorted_paths[@]}"; do
+  left_kind="${left_kinds[$rel_path]-}"
+  right_kind="${right_kinds[$rel_path]-}"
+
+  if [[ -n "${left_entries[$rel_path]+x}" && -n "${right_entries[$rel_path]+x}" ]]; then
+    if [[ "$left_kind" == "f" && "$right_kind" == "f" ]]; then
+      if ! cmp -s "$dir1/$rel_path" "$dir2/$rel_path"; then
+        mark_problem_ancestors "$rel_path"
+      fi
+    elif [[ "$left_kind" == "d" && "$right_kind" == "d" ]]; then
+      if ((recursive == 0)); then
+        if ! diff -qr -- "$dir1/$rel_path" "$dir2/$rel_path" >/dev/null 2>&1; then
+          subtree_problem["$rel_path"]=1
+        fi
+      fi
+    else
+      mark_problem_ancestors "$rel_path"
+    fi
+  else
+    mark_problem_ancestors "$rel_path"
+  fi
+done
+
 dir1_header="$(truncate_from_start "$dir1" "$COL_WIDTH")"
 dir2_header="$(truncate_from_start "$dir2" "$COL_WIDTH")"
 
@@ -161,8 +195,7 @@ for rel_path in "${sorted_paths[@]}"; do
   left_label="missing"
   right_label="missing"
   status=""
-  left_color="$RST"
-  right_color="$RST"
+  row_color="$RST"
   left_kind="${left_kinds[$rel_path]-}"
   right_kind="${right_kinds[$rel_path]-}"
 
@@ -178,40 +211,41 @@ for rel_path in "${sorted_paths[@]}"; do
 
   if [[ -n "${left_entries[$rel_path]+x}" && -n "${right_entries[$rel_path]+x}" ]]; then
     if [[ "$left_kind" == "d" && "$right_kind" == "d" ]]; then
-      status="identical"
-      left_color="$GRN"
-      right_color="$GRN"
+      if [[ -n "${subtree_problem[$rel_path]+x}" ]]; then
+        status="differs"
+        row_color="$YEL"
+      else
+        status="identical"
+        row_color="$GRN"
+      fi
     elif [[ "$left_kind" == "f" && "$right_kind" == "f" ]]; then
       if cmp -s "$left_path" "$right_path"; then
         status="identical"
-        left_color="$GRN"
-        right_color="$GRN"
+        row_color="$GRN"
       else
         status="differs"
-        left_color="$YEL"
-        right_color="$YEL"
+        row_color="$YEL"
         differing_paths+=("$rel_path")
       fi
     else
       status="differs"
-      left_color="$YEL"
-      right_color="$YEL"
+      row_color="$YEL"
     fi
   elif [[ -n "${left_entries[$rel_path]+x}" ]]; then
     status="missing"
-    right_color="$RED"
+    row_color="$RED"
   else
     status="missing"
-    left_color="$RED"
+    row_color="$RED"
   fi
 
   left_display="$(truncate_from_start "$left_label" "$COL_WIDTH")"
   right_display="$(truncate_from_start "$right_label" "$COL_WIDTH")"
 
-  printf "%b%-${COL_WIDTH}s%b | %b%-${COL_WIDTH}s%b | %s\n" \
-    "$left_color" "$left_display" "$RST" \
-    "$right_color" "$right_display" "$RST" \
-    "$status"
+  printf "%b%-${COL_WIDTH}s%b | %b%-${COL_WIDTH}s%b | %b%s%b\n" \
+    "$row_color" "$left_display" "$RST" \
+    "$row_color" "$right_display" "$RST" \
+    "$row_color" "$status" "$RST"
 done
 
 if ((${#differing_paths[@]} == 0)); then
