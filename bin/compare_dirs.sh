@@ -15,11 +15,12 @@ usage() {
 Usage:
   compare_dirs.sh [OPTION] <directory1> <directory2>
 
-Compares two directories recursively and prints:
-1) A file overview table (left file, right file, status)
+Compares two directories and prints:
+1) An overview table for files and directories (left entry, right entry, status)
 2) A detailed diff section for files that differ
 
 Options:
+  -r, --recursive          Include files and directories from subdirectories
   -i, --interactive-diff   Open each differing file in vimdiff (recommended name)
   -d, --show-diff          Print unified diff output for differing files
       --vimdiff            Alias for --interactive-diff
@@ -39,6 +40,7 @@ EOF
 
 interactive_diff=0
 show_diff=0
+recursive=0
 
 truncate_from_start() {
   local text="$1"
@@ -60,6 +62,10 @@ while (($# > 0)); do
       ;;
     -d|--show-diff)
       show_diff=1
+      shift
+      ;;
+    -r|--recursive)
+      recursive=1
       shift
       ;;
     -i|--interactive-diff|--vimdiff)
@@ -107,22 +113,38 @@ if ((interactive_diff)) && ! command -v vimdiff >/dev/null 2>&1; then
   exit 1
 fi
 
-# Build a union of relative file paths from both directories.
-declare -A left_files=()
-declare -A right_files=()
-declare -A all_files=()
+# Build a union of relative paths from both directories.
+declare -A left_entries=()
+declare -A right_entries=()
+declare -A left_kinds=()
+declare -A right_kinds=()
+declare -A all_entries=()
 
-while IFS= read -r rel_path; do
-  left_files["$rel_path"]=1
-  all_files["$rel_path"]=1
-done < <(find "$dir1" -type f -printf '%P\n' | sort)
+collect_entries() {
+  local root="$1"
 
-while IFS= read -r rel_path; do
-  right_files["$rel_path"]=1
-  all_files["$rel_path"]=1
-done < <(find "$dir2" -type f -printf '%P\n' | sort)
+  if ((recursive)); then
+    find "$root" -mindepth 1 \( -type f -o -type d \) -printf '%P\t%y\n' | sort
+  else
+    find "$root" -mindepth 1 -maxdepth 1 \( -type f -o -type d \) -printf '%P\t%y\n' | sort
+  fi
+}
 
-mapfile -t sorted_paths < <(printf '%s\n' "${!all_files[@]}" | sed '/^$/d' | sort)
+while IFS=$'\t' read -r rel_path entry_kind; do
+  [[ -z "$rel_path" ]] && continue
+  left_entries["$rel_path"]=1
+  left_kinds["$rel_path"]="$entry_kind"
+  all_entries["$rel_path"]=1
+done < <(collect_entries "$dir1")
+
+while IFS=$'\t' read -r rel_path entry_kind; do
+  [[ -z "$rel_path" ]] && continue
+  right_entries["$rel_path"]=1
+  right_kinds["$rel_path"]="$entry_kind"
+  all_entries["$rel_path"]=1
+done < <(collect_entries "$dir2")
+
+mapfile -t sorted_paths < <(printf '%s\n' "${!all_entries[@]}" | sed '/^$/d' | sort)
 
 dir1_header="$(truncate_from_start "$dir1" "$COL_WIDTH")"
 dir2_header="$(truncate_from_start "$dir2" "$COL_WIDTH")"
@@ -141,27 +163,41 @@ for rel_path in "${sorted_paths[@]}"; do
   status=""
   left_color="$RST"
   right_color="$RST"
+  left_kind="${left_kinds[$rel_path]-}"
+  right_kind="${right_kinds[$rel_path]-}"
 
-  if [[ -n "${left_files[$rel_path]+x}" ]]; then
+  if [[ -n "${left_entries[$rel_path]+x}" ]]; then
     left_label="$rel_path"
+    [[ "$left_kind" == "d" ]] && left_label+="/"
   fi
 
-  if [[ -n "${right_files[$rel_path]+x}" ]]; then
+  if [[ -n "${right_entries[$rel_path]+x}" ]]; then
     right_label="$rel_path"
+    [[ "$right_kind" == "d" ]] && right_label+="/"
   fi
 
-  if [[ -n "${left_files[$rel_path]+x}" && -n "${right_files[$rel_path]+x}" ]]; then
-    if cmp -s "$left_path" "$right_path"; then
+  if [[ -n "${left_entries[$rel_path]+x}" && -n "${right_entries[$rel_path]+x}" ]]; then
+    if [[ "$left_kind" == "d" && "$right_kind" == "d" ]]; then
       status="identical"
       left_color="$GRN"
       right_color="$GRN"
+    elif [[ "$left_kind" == "f" && "$right_kind" == "f" ]]; then
+      if cmp -s "$left_path" "$right_path"; then
+        status="identical"
+        left_color="$GRN"
+        right_color="$GRN"
+      else
+        status="differs"
+        left_color="$YEL"
+        right_color="$YEL"
+        differing_paths+=("$rel_path")
+      fi
     else
       status="differs"
       left_color="$YEL"
       right_color="$YEL"
-      differing_paths+=("$rel_path")
     fi
-  elif [[ -n "${left_files[$rel_path]+x}" ]]; then
+  elif [[ -n "${left_entries[$rel_path]+x}" ]]; then
     status="missing"
     right_color="$RED"
   else
@@ -180,7 +216,7 @@ done
 
 if ((${#differing_paths[@]} == 0)); then
   echo
-  echo "No differing files found."
+  echo "No differing files found for the diff section."
   exit 0
 fi
 
