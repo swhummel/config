@@ -39,12 +39,10 @@ set wildignore+=*~,*.swp,*.tmp
 " *****************************************************************************
 " highlight tabs
 set list
-"set list listchars=tab:»,trail:¤
-set listchars=tab:»·,trail:¤ ",eol:¶,precedes:«,extends:»
-"set listchars=tab:»­,trail:· ",eol:¶,precedes:«,extends:»
+"set listchars=tab:»·,trail:¤ ",eol:¶,precedes:«,extends:»
+set listchars=tab:»·,trail:¤,leadmultispace:·\ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·
 "whitespace example:     
 "tab example:	
-set lcs=leadmultispace:\ \ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·
 
 "
 " *****************************************************************************
