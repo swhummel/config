@@ -90,8 +90,10 @@ filetype indent on
 map <F1> <C-]>
 map <F2> <C-O>
 
-map <F3> :set diffopt+=iwhite<cr>
-map <F4> :set diffopt-=iwhite<cr>
+nnoremap <F3> :windo set invwrap<CR>
+nnoremap <F4> :qa<CR>
+"map <F3> :set diffopt+=iwhite<cr>
+"map <F4> :set diffopt-=iwhite<cr>
 
 " comment/uncomment
 map <F5> :norm i//<cr>
@@ -151,6 +153,11 @@ autocmd BufReadPost *.handlebars :set syntax=handlebars
 
 autocmd BufReadPost *.json :set syntax=json
 autocmd BufReadPost *.awk :set syntax=awk
+
+augroup ForceUnix
+    autocmd!
+    autocmd BufReadPost * if &ff ==# 'dos' | e ++ff=unix | endif
+augroup END
 
 " ********************************************
 " Abbreviations - General Editing - Inserting Dates and Times

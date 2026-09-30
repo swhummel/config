@@ -54,6 +54,7 @@ alias cdcc='cd /local/users/swhummel/ccviews/'
 alias note='vim ~/notes'
 alias xterm='xterm -lc'
 alias sd='. $HOME/bin/setDisplay'
+alias gk='gitk'
 
 
 
