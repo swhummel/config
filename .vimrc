@@ -39,8 +39,11 @@ set wildignore+=*~,*.swp,*.tmp
 " *****************************************************************************
 " highlight tabs
 set list
-"set listchars=tab:»·,trail:¤ ",eol:¶,precedes:«,extends:»
-set listchars=tab:»·,trail:¤,leadmultispace:·\ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·
+if has('patch-8.2.2508')
+   set listchars=tab:»·,trail:¤,leadmultispace:·\ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·\ \ \ ·
+else
+   set listchars=tab:»·,trail:¤
+endif
 "whitespace example:     
 "tab example:	
 
